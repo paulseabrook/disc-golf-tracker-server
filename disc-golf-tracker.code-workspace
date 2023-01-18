@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../disc-golf-tracker-client"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "disc-golf-tracker-client"
+  }
+}
