@@ -37,5 +37,31 @@ router.post('/pros', (req, res, next) => {
     .catch(next);
 });
 
+// UPDATE
+// PATCH /pros/5a7db6c74d55bc51bdf39793
+router.patch('/pros/:id', (req, res, next) => {
+  // pro Schema, findByID
+  Pro.findById(req.params.id)
+    .then((pro) => {
+      // req.body.pro is when we receive JSON objects
+      // updateOne is middleware
+      return pro.updateOne(req.body.pro);
+    })
+    // 204 success but no content returned
+    .then(() => res.sendStatus(204))
+    .catch(next);
+});
+
+// DESTROY
+// DELETE /pros/5a7db6c74d55bc51bdf39793
+router.delete('/pros/:id', (req, res, next) => {
+  Pro.findById(req.params.id)
+    .then((pro) => {
+      pro.deleteOne();
+    })
+    .then(() => res.sendStatus(204))
+    .catch(next);
+});
+
 // exporting the router to use elsewhere
 module.exports = router;
