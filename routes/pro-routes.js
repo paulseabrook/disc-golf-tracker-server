@@ -18,6 +18,15 @@ router.get('/pros', (req, res, next) => {
     .catch(next);
 });
 
+// SHOW
+// GET /pros/5a7db6c74d55bc51bdf39793
+router.get('/pros/:id', (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  Pro.findById(req.params.id)
+    .then((pro) => res.status(200).json({ pro: pro }))
+    .catch(next);
+});
+
 // CREATE
 // POST /pros
 router.post('/pros', (req, res, next) => {
