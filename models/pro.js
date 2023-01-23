@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 // Getting the Schema from Mongoose
 const Schema = mongoose.Schema;
 
+const winSchema = require('./win');
+
 // Creating a new character Schema
 const proSchema = new Schema(
   {
@@ -23,6 +25,7 @@ const proSchema = new Schema(
       type: String,
       required: true,
     },
+    wins: [winSchema],
   },
   {
     timestamps: true,
