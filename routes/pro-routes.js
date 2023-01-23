@@ -4,12 +4,14 @@ const express = require('express');
 // require the Model we just created
 const Pro = require('../models/pro');
 
+const { requireToken } = require('../config/auth');
+
 // Creating a router for us to make paths on
 const router = express.Router();
 
 // INDEX
 // GET /pros
-router.get('/pros', (req, res, next) => {
+router.get('/pros', requireToken, (req, res, next) => {
   Pro.find()
     .then((pros) => {
       return pros.map((pro) => pro);
@@ -20,7 +22,7 @@ router.get('/pros', (req, res, next) => {
 
 // SHOW
 // GET /pros/5a7db6c74d55bc51bdf39793
-router.get('/pros/:id', (req, res, next) => {
+router.get('/pros/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
   Pro.findById(req.params.id)
     .then((pro) => res.status(200).json({ pro: pro }))
@@ -29,7 +31,7 @@ router.get('/pros/:id', (req, res, next) => {
 
 // CREATE
 // POST /pros
-router.post('/pros', (req, res, next) => {
+router.post('/pros', requireToken, (req, res, next) => {
   Pro.create(req.body.pro)
     .then((pro) => {
       res.status(201).json({ pro: pro });
@@ -39,7 +41,7 @@ router.post('/pros', (req, res, next) => {
 
 // UPDATE
 // PATCH /pros/5a7db6c74d55bc51bdf39793
-router.patch('/pros/:id', (req, res, next) => {
+router.patch('/pros/:id', requireToken, (req, res, next) => {
   // pro Schema, findByID
   Pro.findById(req.params.id)
     .then((pro) => {
@@ -54,7 +56,7 @@ router.patch('/pros/:id', (req, res, next) => {
 
 // DESTROY
 // DELETE /pros/5a7db6c74d55bc51bdf39793
-router.delete('/pros/:id', (req, res, next) => {
+router.delete('/pros/:id', requireToken, (req, res, next) => {
   Pro.findById(req.params.id)
     .then((pro) => {
       pro.deleteOne();
